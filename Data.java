@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class Data{
   final String name;
@@ -13,8 +14,16 @@ class Data{
   	this.gender =gender;
   }
    int getAge(){
-	   return age;
+	   return this.age;
    }
+  String getName(){
+	   return this.name;
+  }
+
+
+   public String toString(){
+	  return "Name : " +this.name+" Age : "+age+" Color : "+color+" Gender : " +gender;
+  }
 
   public static List<Data> getData(){
   	List<Data> data = new ArrayList<Data>();
@@ -25,6 +34,11 @@ class Data{
   }
 
   public static void main(String arg[]){
-	  List<Data> ls = Data.getData().filter(Data::age->age>=10);
+	  List<Data> ls = Data.getData().stream().filter((k) -> k.getAge()>=1).collect(Collectors.toList());
+
+	// ls.forEach(System.out::println);
+	 List<String> names = Data.getData().stream().filter((k) -> {System.out.println(k);return k.getAge()>=30;}).map(k-> {System.out.println("---Map--- :"+k);return k.getName();}).collect(Collectors.toList());
+
+	 names.forEach(System.out::println);
   }
 }
